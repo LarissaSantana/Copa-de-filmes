@@ -1,10 +1,11 @@
-﻿using CopaDeFilmes.Domain.Core;
-using CopaDeFilmes.Domain.Entities;
+﻿using CopaDeFilmes.Domain.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CopaDeFilmes.Domain.Repositories
 {
-    public interface IFilmeRepository : IRepository<Filme>
+    public interface IFilmeRepository
     {
-        Filme ObterTodosOsFilmes();
+        Task<IEnumerable<Filme>> ObterTodosOsFilmesAsync();
     }
 }
