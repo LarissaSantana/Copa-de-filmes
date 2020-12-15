@@ -2,6 +2,5 @@
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity<TEntity>
     {
-        TEntity ObterTodosOsFilmes();
     }
 }
