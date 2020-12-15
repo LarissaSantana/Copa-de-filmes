@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 
-namespace CopaDeFilmes.Domain
+namespace CopaDeFilmes.Domain.Core
 {
     public abstract class BaseEntity<T> : AbstractValidator<T> where T : BaseEntity<T>
     {

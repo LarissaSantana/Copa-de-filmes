@@ -1,4 +1,6 @@
-﻿namespace CopaDeFilmes.Domain.Entities
+﻿using CopaDeFilmes.Domain.Core;
+
+namespace CopaDeFilmes.Domain.Entities
 {
     public class Filme : BaseEntity<Filme>
     {
