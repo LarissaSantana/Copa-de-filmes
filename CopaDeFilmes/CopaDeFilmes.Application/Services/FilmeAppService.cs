@@ -2,7 +2,7 @@
 using CopaDeFilmes.Application.Interfaces;
 using CopaDeFilmes.Application.ViewModels;
 using CopaDeFilmes.Domain.Repositories;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CopaDeFilmes.Application.Services
 {
@@ -11,15 +11,17 @@ namespace CopaDeFilmes.Application.Services
         private readonly IFilmeRepository _filmeRepository;
         private readonly IMapper _mapper;
 
-        public FilmeAppService(IFilmeRepository filmeRepository)
+        public FilmeAppService(IFilmeRepository filmeRepository, IMapper mapper)
         {
             _filmeRepository = filmeRepository;
+            _mapper = mapper;
         }
 
-        public IEnumerable<FilmeViewModel> ObterTodosOsFilmes()
+        public async Task<FilmeViewModel[]> ObterTodosOsFilmes()
         {
-            var filmes = _filmeRepository.ObterTodosOsFilmesAsync();
-            return _mapper.Map<IEnumerable<FilmeViewModel>>(filmes);
+            var filmes = await _filmeRepository.ObterTodosOsFilmesAsync();
+            var filmesViewModel = _mapper.Map<FilmeViewModel[]>(filmes);
+            return filmesViewModel;
         }
     }
 }
