@@ -7,39 +7,36 @@ namespace CopaDeFilmes.Application.Services
 {
     public partial class FilmeAppService
     {
-        public VencedoresViewModel GerarCampeonato(List<FilmeViewModel> filmes)
+        public VencedoresViewModel ProcessarCampeonato(List<FilmeViewModel> filmes)
         {
             if (!filmes.Any()) return new VencedoresViewModel();
-            var quantidadeDeFilmes = filmes.Count();
             //if (filmes.Count() % 2 != 0)  
             //TODO: retornar que só é possível gerar um campeonato com uma quantidade par de filmes. Ver como vai tratar e retornar os erros para a controller.
 
-            var filmesOrdenados = filmes.OrderBy(f => f.Titulo).ToList();
-
-            var teste = OrganizarPrimeiraRodada(filmesOrdenados);
-            var podio = ProcessarPodio(teste);
+            var primeiraRodada = OrganizarPrimeiraRodada(filmes);
+            var podio = ProcessarPodio(primeiraRodada);
             var vencedores = DefinirVencedoresDoCampeonato(podio);
 
             return vencedores;
         }
 
-        private VencedoresViewModel DefinirVencedoresDoCampeonato(List<FilmeViewModel> filmesVencedores)
+        private List<FilmeViewModel> OrganizarPrimeiraRodada(List<FilmeViewModel> filmes)
         {
-            var primeiroColocado = DefinirVencedorDaPartida(filmesVencedores[0], filmesVencedores[1]);
-            var segundoColocado = filmesVencedores.Where(filme => filme != primeiroColocado).FirstOrDefault();
+            var filmesOrdenados = filmes.OrderBy(f => f.Titulo).ToList();
+            var metadeDoTamanho = filmesOrdenados.Count() / 2;
+            var primeiraMetadeDosFilmes = filmesOrdenados.Take(metadeDoTamanho).ToList();
+            var segundaMetadeDosFilmes = filmesOrdenados.Skip(metadeDoTamanho).Reverse().ToList();
 
-            var vencedoresViewModel = new VencedoresViewModel()
+            var primeiraRodada = new List<FilmeViewModel>();
+
+            primeiraMetadeDosFilmes.Zip(segundaMetadeDosFilmes, (item1, item2) =>
             {
-                PrimeiroColocado = primeiroColocado,
-                SegundoColocado = segundoColocado
-            };
+                primeiraRodada.Add(item1);
+                primeiraRodada.Add(item2);
+                return primeiraRodada;
+            }).ToList();
 
-            return vencedoresViewModel;
-        }
-
-        private List<FilmeViewModel> ProcessarPodio(List<FilmeViewModel> filmes)
-        {
-            return filmes.Count() == 2 ? filmes : ProcessarPodio(ProcessarPartida(filmes));
+            return primeiraRodada;
         }
 
         private List<FilmeViewModel> ProcessarPartida(List<FilmeViewModel> filmes)
@@ -50,28 +47,15 @@ namespace CopaDeFilmes.Application.Services
             {
                 //pula para a próxima posição par
                 if (i % 2 == 1) continue;
-                var proximo = filmes[i + 1];
-                vencedores.Add(DefinirVencedorDaPartida(filmes[i], proximo));
+                var proximoFilme = filmes[i + 1];
+                vencedores.Add(DefinirVencedorDaPartida(filmes[i], proximoFilme));
             }
             return vencedores;
         }
 
-        private List<FilmeViewModel> OrganizarPrimeiraRodada(List<FilmeViewModel> listaOrdenada)
+        private List<FilmeViewModel> ProcessarPodio(List<FilmeViewModel> filmes)
         {
-            var metadeDoTamanho = listaOrdenada.Count() / 2;
-            var primeiraMetade = listaOrdenada.Take(metadeDoTamanho).ToList();
-            var segundaMetade = listaOrdenada.Skip(metadeDoTamanho).Reverse().ToList();
-
-            var primeiraRodada = new List<FilmeViewModel>();
-
-            primeiraMetade.Zip(segundaMetade, (item1, item2) =>
-            {
-                primeiraRodada.Add(item1);
-                primeiraRodada.Add(item2);
-                return primeiraRodada;
-            }).ToList();
-
-            return primeiraRodada;
+            return filmes.Count() == 2 ? filmes : ProcessarPodio(ProcessarPartida(filmes));
         }
 
         private FilmeViewModel DefinirVencedorDaPartida(FilmeViewModel filmeA, FilmeViewModel filmeB)
@@ -88,6 +72,20 @@ namespace CopaDeFilmes.Application.Services
                 return filmeA;
 
             return filmeB;
+        }
+
+        private VencedoresViewModel DefinirVencedoresDoCampeonato(List<FilmeViewModel> podio)
+        {
+            var primeiroColocado = DefinirVencedorDaPartida(podio[0], podio[1]);
+            var segundoColocado = podio.Where(filme => filme != primeiroColocado).FirstOrDefault();
+
+            var vencedoresViewModel = new VencedoresViewModel()
+            {
+                PrimeiroColocado = primeiroColocado,
+                SegundoColocado = segundoColocado
+            };
+
+            return vencedoresViewModel;
         }
     }
 }
