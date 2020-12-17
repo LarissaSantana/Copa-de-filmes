@@ -1,19 +1,33 @@
-﻿using Newtonsoft.Json;
+﻿using CopaDeFilmes.Domain.Core;
 
 namespace CopaDeFilmes.Domain.Entities
 {
-    public class Filme
+    public class Filme : BaseEntity<Filme>
     {
-        [JsonProperty("id")]
-        public string Id { get; private set; }
-
-        [JsonProperty("titulo")]
         public string Titulo { get; private set; }
-
-        [JsonProperty("ano")]
         public int Ano { get; private set; }
-
-        [JsonProperty("nota")]
         public float Nota { get; private set; }
+
+        public Filme(string id, string titulo, int ano, float nota)
+        {
+            Id = id;
+            Titulo = titulo;
+            Ano = ano;
+            Nota = nota;
+        }
+
+        public override bool IsValid()
+        {
+            ValidationResult = Validate(this);
+            return ValidationResult.IsValid;
+        }
+
+        public static class FilmeFactory
+        {
+            public static Filme Create(string id, string titulo, int ano, float nota)
+            {
+                return new Filme(id, titulo, ano, nota);
+            }
+        }
     }
 }
