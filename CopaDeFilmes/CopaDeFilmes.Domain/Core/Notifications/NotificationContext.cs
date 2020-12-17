@@ -6,11 +6,15 @@ namespace CopaDeFilmes.Domain.Core.Notifications
     public class NotificationContext : INotificationContext
     {
         private List<Notification> _notifications;
-        public bool HasNotifications => _notifications.Any();
 
         public NotificationContext()
         {
             _notifications = new List<Notification>();
+        }
+        
+        public bool HasNotifications()
+        {
+            return _notifications.Any();               
         }
 
         public void AddNotification(string key, string message)
@@ -26,6 +30,11 @@ namespace CopaDeFilmes.Domain.Core.Notifications
         public List<Notification> GetNotifications()
         {
             return _notifications;
+        }
+
+        public void AddNotification(string message)
+        {
+            _notifications.Add(new Notification(null, message));
         }
 
         public void Dispose()

@@ -7,17 +7,26 @@ namespace CopaDeFilmes.Application.Services
 {
     public partial class FilmeAppService
     {
+
         public VencedoresViewModel ProcessarCampeonato(List<FilmeViewModel> filmes)
         {
-            if (!filmes.Any()) return new VencedoresViewModel();
-            //if (filmes.Count() % 2 != 0)  
-            //TODO: retornar que só é possível gerar um campeonato com uma quantidade par de filmes. Ver como vai tratar e retornar os erros para a controller.
-
+            ValidarCampeonato(filmes);
             var primeiraRodada = OrganizarPrimeiraRodada(filmes);
             var podio = ProcessarPodio(primeiraRodada);
             var vencedores = DefinirVencedoresDoCampeonato(podio);
 
             return vencedores;
+        }
+
+        private void ValidarCampeonato(List<FilmeViewModel> filmes)
+        {
+            if (filmes != null && !filmes.Any())
+                _notification.AddNotification("Para gerar um campeonato, é necessário ter, pelo menos, dois filmes");
+
+            if ((filmes.Count()) % 2 != 0)
+                _notification.AddNotification("Para gerar um campeonato, é necessário ter uma quantidade par de filmes");
+
+            if (_notification.HasNotifications()) return;
         }
 
         private List<FilmeViewModel> OrganizarPrimeiraRodada(List<FilmeViewModel> filmes)
