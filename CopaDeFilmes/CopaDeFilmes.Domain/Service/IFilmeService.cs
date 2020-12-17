@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CopaDeFilmes.Domain.Service
+﻿namespace CopaDeFilmes.Domain.Service
 {
     public interface IFilmeService
     {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using static CopaDeFilmes.Domain.Entities.Filme;
 
 namespace CopaDeFilmes.Data.Repositories
 {
@@ -31,18 +32,21 @@ namespace CopaDeFilmes.Data.Repositories
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<Filme[]> ObterTodosOsFilmesAsync()
+        public async Task<List<Filme>> ObterTodosOsFilmesAsync()
         {
             var response = await _client.GetAsync("api/filmes");
 
             if (response.IsSuccessStatusCode)
             {
                 var filmes = await response.Content.ReadAsStringAsync();
-                var listaDeFilmes = JsonConvert.DeserializeObject<Filme[]>(filmes);
-                return listaDeFilmes.ToArray();
+                var listaDeFilmesDTO = JsonConvert.DeserializeObject<FilmeDTO[]>(filmes).ToList();
+
+                var listaDeFilmes = new List<Filme>();
+                listaDeFilmesDTO.ForEach(filme => listaDeFilmes.Add(FilmeFactory.Create(filme.Id, filme.Titulo, filme.Ano, filme.Nota)));
+                return listaDeFilmes.ToList();
             }
 
-            return new List<Filme>().ToArray();
+            return new List<Filme>();
         }
     }
 }
