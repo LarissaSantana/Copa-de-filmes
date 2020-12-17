@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace CopaDeFilmes.API.Controllers
 {
     //TODO: Implementar versionamento da API e documentação swagger
-    [Route("api/filme")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class FilmeController : BaseController
     {
