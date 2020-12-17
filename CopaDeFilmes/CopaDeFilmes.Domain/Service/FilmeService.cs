@@ -1,11 +1,25 @@
-﻿using System;
+﻿using CopaDeFilmes.Domain.Entities;
+using CopaDeFilmes.Domain.Repositories;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace CopaDeFilmes.Domain.Service
 {
-    public class FilmeService
+    public class FilmeService : IFilmeService
     {
+        private readonly IFilmeRepository _filmeRepository;
+
+        public FilmeService(IFilmeRepository filmeRepository)
+        {
+            _filmeRepository = filmeRepository;
+        }
+
+        public async Task<List<Filme>> ObterTodosOsFilmes()
+        {
+            var filmes = await _filmeRepository.ObterTodosOsFilmesAsync();
+            return filmes;
+        }
+
         //public VencedoresViewModel ProcessarCampeonato(List<FilmeViewModel> filmes)
         //{
         //    ValidarCampeonato(filmes);
