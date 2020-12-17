@@ -37,14 +37,29 @@ namespace CopaDeFilmes.Application.Services
             var filmesOrdenados = filmes.OrderBy(f => f.Titulo).ToList();
 
             var teste = OrganizarPrimeiraRodada(filmesOrdenados);
-            var vencedoresPrimeiraPartida = ProcessarPartida(teste);
+            var podio = ProcessarPodio(teste);
+            var vencedores = DefinirVencedoresDoCampeonato(podio);
 
-            return null;
+            return vencedores;
         }
 
-        private void ProcessarPodio(List<FilmeViewModel> filmes)
+        private VencedoresViewModel DefinirVencedoresDoCampeonato(List<FilmeViewModel> filmesVencedores)
         {
+            var primeiroColocado = DefinirVencedorDaPartida(filmesVencedores[0], filmesVencedores[1]);
+            var segundoColocado = filmesVencedores.Where(filme => filme != primeiroColocado).FirstOrDefault();
 
+            var vencedoresViewModel = new VencedoresViewModel()
+            {
+                PrimeiroColocado = primeiroColocado,
+                SegundoColocado = segundoColocado
+            };
+
+            return vencedoresViewModel;
+        }
+
+        private List<FilmeViewModel> ProcessarPodio(List<FilmeViewModel> filmes)
+        {
+            return filmes.Count() == 2 ? filmes : ProcessarPodio(ProcessarPartida(filmes));
         }
 
         private List<FilmeViewModel> ProcessarPartida(List<FilmeViewModel> filmes)
@@ -84,9 +99,9 @@ namespace CopaDeFilmes.Application.Services
             //TODO: ver o que fazer caso as notas e os titulos dos filmes sejam iguais
             if (filmeA.Nota == filmeB.Nota)
             {
-                if (filmeA.Titulo.CompareTo(filmeB.Titulo) > 0)
+                if (filmeA.Titulo.CompareTo(filmeB.Titulo) < 0)
                     return filmeA;
-                else if (filmeA.Titulo.CompareTo(filmeB.Titulo) < 0)
+                else if (filmeA.Titulo.CompareTo(filmeB.Titulo) > 0)
                     return filmeB;
             }
             else if (filmeA.Nota > filmeB.Nota)
