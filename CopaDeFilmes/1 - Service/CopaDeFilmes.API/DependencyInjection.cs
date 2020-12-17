@@ -14,7 +14,7 @@ namespace CopaDeFilmes.API
             //TODO: analisar se vai ser AddScoped mesmo e organizar melhor a DI
             services.AddScoped<IFilmeRepository, FilmeRepository>();
             services.AddScoped<IFilmeAppService, FilmeAppService>();
-            services.AddScoped<INotificationContext, NotificationContext>();
+            services.AddScoped<INotificationContext<Notification>, NotificationContext>();
         }
     }
 }

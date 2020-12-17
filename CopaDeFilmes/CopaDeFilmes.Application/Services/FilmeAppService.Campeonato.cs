@@ -11,6 +11,8 @@ namespace CopaDeFilmes.Application.Services
         public VencedoresViewModel ProcessarCampeonato(List<FilmeViewModel> filmes)
         {
             ValidarCampeonato(filmes);
+            if (_notification.HasNotifications()) return new VencedoresViewModel();
+
             var primeiraRodada = OrganizarPrimeiraRodada(filmes);
             var podio = ProcessarPodio(primeiraRodada);
             var vencedores = DefinirVencedoresDoCampeonato(podio);
@@ -21,12 +23,16 @@ namespace CopaDeFilmes.Application.Services
         private void ValidarCampeonato(List<FilmeViewModel> filmes)
         {
             if (filmes != null && !filmes.Any())
+            {
                 _notification.AddNotification("Para gerar um campeonato, é necessário ter, pelo menos, dois filmes");
+                return;
+            }
 
             if ((filmes.Count()) % 2 != 0)
+            {
                 _notification.AddNotification("Para gerar um campeonato, é necessário ter uma quantidade par de filmes");
-
-            if (_notification.HasNotifications()) return;
+                return;
+            }
         }
 
         private List<FilmeViewModel> OrganizarPrimeiraRodada(List<FilmeViewModel> filmes)

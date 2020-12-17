@@ -10,10 +10,10 @@ namespace CopaDeFilmes.Application.Services
     public partial class FilmeAppService : IFilmeAppService
     {
         private readonly IFilmeRepository _filmeRepository;
-        private readonly INotificationContext _notification;
+        private readonly INotificationContext<Notification> _notification;
         private readonly IMapper _mapper;
 
-        public FilmeAppService(IFilmeRepository filmeRepository, INotificationContext notification, IMapper mapper)
+        public FilmeAppService(IFilmeRepository filmeRepository, INotificationContext<Notification> notification, IMapper mapper)
         {
             _filmeRepository = filmeRepository;
             _notification = notification;

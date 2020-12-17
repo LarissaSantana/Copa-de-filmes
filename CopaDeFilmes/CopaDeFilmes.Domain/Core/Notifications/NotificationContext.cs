@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CopaDeFilmes.Domain.Core.Notifications
 {
-    public class NotificationContext : INotificationContext
+    public class NotificationContext : INotificationContext<Notification>
     {
         private List<Notification> _notifications;
 
