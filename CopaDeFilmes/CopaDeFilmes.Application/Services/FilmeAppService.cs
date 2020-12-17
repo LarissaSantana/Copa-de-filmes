@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CopaDeFilmes.Application.Interfaces;
 using CopaDeFilmes.Application.ViewModels;
+using CopaDeFilmes.Domain.Core.Notifications;
 using CopaDeFilmes.Domain.Repositories;
 using System.Threading.Tasks;
 
@@ -9,11 +10,13 @@ namespace CopaDeFilmes.Application.Services
     public partial class FilmeAppService : IFilmeAppService
     {
         private readonly IFilmeRepository _filmeRepository;
+        private readonly INotificationContext _notification;
         private readonly IMapper _mapper;
 
-        public FilmeAppService(IFilmeRepository filmeRepository, IMapper mapper)
+        public FilmeAppService(IFilmeRepository filmeRepository, INotificationContext notification, IMapper mapper)
         {
             _filmeRepository = filmeRepository;
+            _notification = notification;
             _mapper = mapper;
         }
 

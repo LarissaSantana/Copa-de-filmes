@@ -1,6 +1,7 @@
 ﻿using CopaDeFilmes.Application.Interfaces;
 using CopaDeFilmes.Application.Services;
 using CopaDeFilmes.Data.Repositories;
+using CopaDeFilmes.Domain.Core.Notifications;
 using CopaDeFilmes.Domain.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,7 +14,7 @@ namespace CopaDeFilmes.API
             //TODO: analisar se vai ser AddScoped mesmo e organizar melhor a DI
             services.AddScoped<IFilmeRepository, FilmeRepository>();
             services.AddScoped<IFilmeAppService, FilmeAppService>();
-
+            services.AddScoped<INotificationContext, NotificationContext>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CopaDeFilmes.Application.Interfaces;
 using CopaDeFilmes.Application.ViewModels;
+using CopaDeFilmes.Domain.Core.Notifications;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,10 +13,12 @@ namespace CopaDeFilmes.API.Controllers
     public class FilmeController : ControllerBase
     {
         private readonly IFilmeAppService _filmeAppService;
+        private readonly INotificationContext _notification;
 
-        public FilmeController(IFilmeAppService filmeAppService)
+        public FilmeController(IFilmeAppService filmeAppService, INotificationContext notification)
         {
             _filmeAppService = filmeAppService;
+            _notification = notification;
         }
 
         [HttpGet]
@@ -28,9 +31,8 @@ namespace CopaDeFilmes.API.Controllers
         [HttpPost]
         public IActionResult GerarCampeonato([FromBody] List<FilmeViewModel> filmes)
         {
-            var vencedores = _filmeAppService.GerarCampeonato(filmes);
+            var vencedores = _filmeAppService.ProcessarCampeonato(filmes);
             return Ok(vencedores);
         }
-
     }
 }
