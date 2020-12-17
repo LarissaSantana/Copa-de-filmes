@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System;
 
 namespace CopaDeFilmes.API
@@ -43,6 +44,23 @@ namespace CopaDeFilmes.API
                 opt.GroupNameFormat = "'v'VVV";
                 opt.SubstituteApiVersionInUrl = true;
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "API V1 Title",
+                    Description = "API V1 Description"
+                });
+
+                //c.SwaggerDoc("v2", new OpenApiInfo
+                //{
+                //    Version = "v2",
+                //    Title = "API V2 Title",
+                //    Description = "API V2 Description"
+                //});
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,6 +69,13 @@ namespace CopaDeFilmes.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseSwagger();
+            app.UseSwaggerUI(opt =>
+            {
+                opt.SwaggerEndpoint($"/swagger/v1/swagger.json", "API V1");
+                //opt.SwaggerEndpoint($"/swagger/v2/swagger.json", "API V2");
+            });
 
             app.UseHttpsRedirection();
             app.UseRouting();
