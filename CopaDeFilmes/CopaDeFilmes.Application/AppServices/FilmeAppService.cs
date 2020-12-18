@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CopaDeFilmes.Application.Interfaces;
 using CopaDeFilmes.Application.ViewModels;
-using CopaDeFilmes.Domain.Core.Notifications;
 using CopaDeFilmes.Domain.Entities;
 using CopaDeFilmes.Domain.Service;
 using System.Collections.Generic;
