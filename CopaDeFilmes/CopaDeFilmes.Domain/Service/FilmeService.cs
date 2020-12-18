@@ -26,6 +26,9 @@ namespace CopaDeFilmes.Domain.Service
 
         public List<Filme> ProcessarCampeonato(List<Filme> filmes)
         {
+            ValidarCampeonato(filmes);
+            if (_notification.HasNotifications()) return new List<Filme>();
+
             var primeiraRodada = OrganizarPrimeiraRodada(filmes);
             var podio = ProcessarPodio(primeiraRodada);
             podio = podio.OrderBy(filme => filme.Nota)
@@ -33,6 +36,21 @@ namespace CopaDeFilmes.Domain.Service
                          .ToList();
 
             return podio;
+        }
+
+        private void ValidarCampeonato(List<Filme> filmesViewModel)
+        {
+            if (filmesViewModel != null && !filmesViewModel.Any())
+            {
+                _notification.AddNotification("Para gerar um campeonato, é necessário ter, pelo menos, dois filmes");
+                return;
+            }
+
+            if ((filmesViewModel.Count()) % 2 != 0)
+            {
+                _notification.AddNotification("Para gerar um campeonato, é necessário ter uma quantidade par de filmes");
+                return;
+            }
         }
 
         public List<Filme> OrganizarPrimeiraRodada(List<Filme> filmes)
@@ -73,9 +91,8 @@ namespace CopaDeFilmes.Domain.Service
             return filmes.Count() == 2 ? filmes : ProcessarPodio(ProcessarPartida(filmes));
         }
 
-        private Filme DefinirVencedorDaPartida(Filme filmeA, Filme filmeB)
+        public Filme DefinirVencedorDaPartida(Filme filmeA, Filme filmeB)
         {
-            //TODO: ver o que fazer caso as notas e os titulos dos filmes sejam iguais
             if (filmeA.Nota == filmeB.Nota)
             {
                 if (filmeA.Titulo.CompareTo(filmeB.Titulo) < 0)

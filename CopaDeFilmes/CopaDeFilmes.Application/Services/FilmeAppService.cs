@@ -32,11 +32,10 @@ namespace CopaDeFilmes.Application.Services
 
         public VencedoresViewModel ProcessarCampeonato(List<FilmeViewModel> filmesViewModel)
         {
-            ValidarCampeonato(filmesViewModel);
-            if (_notification.HasNotifications()) return new VencedoresViewModel();
-
             var filmes = _mapper.Map<List<Filme>>(filmesViewModel);
             var podio = _filmeService.ProcessarCampeonato(filmes);
+
+            if (!podio.Any()) return new VencedoresViewModel();
 
             var vencedores = new VencedoresViewModel()
             {
@@ -45,21 +44,6 @@ namespace CopaDeFilmes.Application.Services
             };
 
             return vencedores;
-        }
-
-        private void ValidarCampeonato(List<FilmeViewModel> filmesViewModel)
-        {
-            if (filmesViewModel != null && !filmesViewModel.Any())
-            {
-                _notification.AddNotification("Para gerar um campeonato, é necessário ter, pelo menos, dois filmes");
-                return;
-            }
-
-            if ((filmesViewModel.Count()) % 2 != 0)
-            {
-                _notification.AddNotification("Para gerar um campeonato, é necessário ter uma quantidade par de filmes");
-                return;
-            }
         }
 
         //private VencedoresViewModel DefinirVencedoresDoCampeonato(List<Filme> podio)
