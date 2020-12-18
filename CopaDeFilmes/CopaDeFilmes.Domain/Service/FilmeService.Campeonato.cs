@@ -14,12 +14,12 @@ namespace CopaDeFilmes.Domain.Service
             if (_notification.HasNotifications()) return new Campeonato();
 
             var primeiraRodada = OrganizarPrimeiraRodada(filmes);
-            var podio = ProcessarPodio(primeiraRodada);
-            podio = podio.OrderBy(filme => filme.Nota)
-                         .ThenBy(filme => filme.Titulo)
-                         .ToList();
+            var podio = ProcessarPodio(primeiraRodada).ToList();
 
-            return CampeonatoFactory.Create(podio[0], podio[1]);
+            var campeao = DefinirVencedorDaPartida(podio[0], podio[1]);
+            var viceCampeao = podio.Where(filme => !filme.Equals(campeao)).FirstOrDefault();
+
+            return CampeonatoFactory.Create(campeao, viceCampeao);
         }
 
         private void ValidarCampeonato(List<Filme> filmesViewModel)

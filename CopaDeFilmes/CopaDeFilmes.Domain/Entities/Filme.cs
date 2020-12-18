@@ -8,12 +8,28 @@ namespace CopaDeFilmes.Domain.Entities
         public int Ano { get; private set; }
         public float Nota { get; private set; }
 
-        public Filme(string id, string titulo, int ano, float nota)
+        public Filme() { }
+
+        private Filme(string id, string titulo, int ano, float nota)
         {
             Id = id;
             Titulo = titulo;
             Ano = ano;
             Nota = nota;
+        }
+
+        public override bool Equals(object o)
+        {
+            if (o is Filme)
+            {
+                var filme = (Filme)o;
+                return Id == filme.Id &&
+                       Titulo == filme.Titulo &&
+                       Ano == filme.Ano &&
+                       Nota == filme.Nota;
+            }
+
+            return false;
         }
 
         public override bool IsValid()

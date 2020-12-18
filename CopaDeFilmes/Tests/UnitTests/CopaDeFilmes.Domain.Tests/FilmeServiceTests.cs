@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using static CopaDeFilmes.Domain.Entities.Campeonato;
 
 namespace CopaDeFilmes.Domain.Tests
 {
@@ -20,41 +21,41 @@ namespace CopaDeFilmes.Domain.Tests
             _filmeService = _filmeServiceFixture.GetFilmeService();
         }
 
+        [Trait("Filme", "FilmeService")]
+        [Fact(DisplayName = "Ao executar campeonato passando o parâmetro correto, deve execuitar com sucesso")]
+        public void ProcessarCampeonato_DeveExecutarComSucesso()
+        {
+            //Arrange
+            var filmesMock = new List<Filme>()
+            {
+                FilmesMock.OsIncriveis2,
+                FilmesMock.JurassicWorld,
+                FilmesMock.OitoMulheresEUmSegredo,
+                FilmesMock.Hereditario,
+                FilmesMock.Vingadores,
+                FilmesMock.Deadpool2,
+                FilmesMock.HanSolo,
+                FilmesMock.ThorRagnarok
+            };
+
+            //Act
+            var campeonato = _filmeService.ProcessarCampeonato(filmesMock);
+
+            //Assert
+            var resultadoEsperado = CampeonatoFactory.Create
+                (
+                    campeao: FilmesMock.Vingadores,
+                    viceCampeao: FilmesMock.OsIncriveis2
+                );
+
+            Assert.True(resultadoEsperado.Equals(campeonato));
+        }
 
         //TODO: PROCESSAR CAMPEONATO PASSANDO UMA LISTA VAZIA
         //TODO: PROCESSAR CAMPEONATO PASSANDO UM NÚMERO IMPAR DE ITENS
         //TODO: PROCESSAR CAMPEONATO PASSANDO UMA LISTA VAZIA
         //TODO: Processar campeonato 
 
-        //[Trait("Filme", "FilmeService")]
-        //[Fact(DisplayName = "Ao processar campeonato com o parâmetro correto deve executar com sucesso")]
-        //public void ProcessarCampeonato_DeveExecutarComSucesso()
-        //{
-        //    //Arrange
-        //    var filmesMock = new List<Filme>()
-        //    {
-        //        FilmesMock.OsIncriveis2,
-        //        FilmesMock.JurassicWorld,
-        //        FilmesMock.OitoMulheresEUmSegredo,
-        //        FilmesMock.Hereditario,
-        //        FilmesMock.Vingadores,
-        //        FilmesMock.Deadpool2,
-        //        FilmesMock.HanSolo,
-        //        FilmesMock.ThorRagnarok
-        //    };
-
-        //    //Act
-        //    var podio = _filmeService.ProcessarCampeonato(filmesMock);
-
-        //    //Assert
-
-        //    _filmeServiceFixture.Mocker.GetMock<IFilmeService>()
-        //        .Verify(x => x.OrganizarPrimeiraRodada(It.IsAny<List<Filme>>()), Times.Once);
-
-        //    _filmeServiceFixture.Mocker.GetMock<IFilmeService>()
-        //        .Verify(x => x.OrganizarPrimeiraRodada(It.Is<List<Filme>>(filmes => filmes.SequenceEqual(filmesMock))),
-        //        Times.Once);
-        //}
 
 
 
