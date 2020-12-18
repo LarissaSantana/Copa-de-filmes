@@ -18,8 +18,20 @@
             if (o is Campeonato)
             {
                 var campeonato = (Campeonato)o;
-                return Campeao.Equals(campeonato.Campeao) &&
-                       ViceCampeao.Equals(campeonato.ViceCampeao);
+
+                var campeaoEhIgual =
+                    Campeao?.Id == campeonato?.Campeao?.Id &&
+                    Campeao?.Nota == campeonato?.Campeao?.Nota &&
+                    Campeao?.Ano == campeonato?.Campeao?.Ano &&
+                    Campeao?.Titulo == campeonato?.Campeao?.Titulo;
+
+                var viceCampeaoEhIgual =
+                    ViceCampeao?.Id == campeonato?.Campeao?.Id &&
+                    ViceCampeao?.Nota == campeonato?.Campeao?.Nota &&
+                    ViceCampeao?.Ano == campeonato?.Campeao?.Ano &&
+                    ViceCampeao?.Titulo == campeonato?.Campeao?.Titulo;
+
+                return campeaoEhIgual && viceCampeaoEhIgual;
             }
 
             return false;

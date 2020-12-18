@@ -1,4 +1,5 @@
-﻿using CopaDeFilmes.Domain.Service;
+﻿using CopaDeFilmes.Domain.Core.Notifications;
+using CopaDeFilmes.Domain.Service;
 using Moq.AutoMock;
 using Xunit;
 
@@ -15,6 +16,13 @@ namespace CopaDeFilmes.Domain.Tests
         {
             Mocker = new AutoMocker();
             return Mocker.CreateInstance<FilmeService>();
+        }
+
+        public void SetupHasNotifications(bool hasNotification)
+        {
+            Mocker.GetMock<INotificationContext<Notification>>()
+                .Setup(x => x.HasNotifications())
+                .Returns(hasNotification);
         }
     }
 }

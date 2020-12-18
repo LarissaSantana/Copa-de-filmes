@@ -1,4 +1,5 @@
-﻿using CopaDeFilmes.Domain.Entities;
+﻿using CopaDeFilmes.Domain.Core.Notifications;
+using CopaDeFilmes.Domain.Entities;
 using CopaDeFilmes.Domain.Service;
 using Moq;
 using System;
@@ -21,7 +22,7 @@ namespace CopaDeFilmes.Domain.Tests
             _filmeService = _filmeServiceFixture.GetFilmeService();
         }
 
-        [Trait("Filme", "FilmeService")]
+        [Trait("Filme", "FilmeService Campeonato")]
         [Fact(DisplayName = "Ao executar campeonato passando o parâmetro correto, deve execuitar com sucesso")]
         public void ProcessarCampeonato_DeveExecutarComSucesso()
         {
@@ -42,24 +43,42 @@ namespace CopaDeFilmes.Domain.Tests
             var campeonato = _filmeService.ProcessarCampeonato(filmesMock);
 
             //Assert
+            _filmeServiceFixture.Mocker.GetMock<INotificationContext<Notification>>()
+                 .Verify(x => x.AddNotification(It.IsAny<string>()), Times.Never);
+
             var resultadoEsperado = CampeonatoFactory.Create
                 (
                     campeao: FilmesMock.Vingadores,
                     viceCampeao: FilmesMock.OsIncriveis2
                 );
 
-            Assert.True(resultadoEsperado.Equals(campeonato));
+            Assert.Equal(resultadoEsperado, campeonato);
         }
 
-        //TODO: PROCESSAR CAMPEONATO PASSANDO UMA LISTA VAZIA
+        [Trait("Filme", "FilmeService Campeonato")]
+        [Fact(DisplayName = "Ao executar campeonato passando uma lista vazia, deve execuitar falha")]
+        public void ProcessarCampeonato_PassandoUmaListaVazia_DeveRetornarMsgDeErro()
+        {
+            //Arrange
+            var filmesMock = new List<Filme>() { };
+            _filmeServiceFixture.SetupHasNotifications(true);
+
+            //Act
+            var campeonato = _filmeService.ProcessarCampeonato(filmesMock);
+
+            //Assert
+            var mensagemDeErroEsperada = "Para gerar um campeonato, é necessário ter, pelo menos, dois filmes";
+            _filmeServiceFixture.Mocker.GetMock<INotificationContext<Notification>>()
+                 .Verify(x => x.AddNotification(It.Is<string>(n => n.Equals(mensagemDeErroEsperada))), Times.Once);
+
+            Assert.Equal(campeonato, new Campeonato());
+        }
+
         //TODO: PROCESSAR CAMPEONATO PASSANDO UM NÚMERO IMPAR DE ITENS
         //TODO: PROCESSAR CAMPEONATO PASSANDO UMA LISTA VAZIA
-        //TODO: Processar campeonato 
 
 
-
-
-        [Trait("Filme", "FilmeService")]
+        [Trait("Filme", "FilmeService Campeonato")]
         [Fact(DisplayName = "Ao organizar primeira partida com o parâmetro correto deve executar com sucesso")]
         public void OrganizarPrimeiraRodada_DeveExecutarComSucesso()
         {

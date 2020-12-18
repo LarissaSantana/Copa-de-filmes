@@ -23,10 +23,10 @@ namespace CopaDeFilmes.Domain.Entities
             if (o is Filme)
             {
                 var filme = (Filme)o;
-                return Id == filme.Id &&
-                       Titulo == filme.Titulo &&
-                       Ano == filme.Ano &&
-                       Nota == filme.Nota;
+                return Id == filme?.Id &&
+                       Titulo == filme?.Titulo &&
+                       Ano == filme?.Ano &&
+                       Nota == filme?.Nota;
             }
 
             return false;
