@@ -57,7 +57,6 @@ namespace CopaDeFilmes.Application.Services
             }
         }
 
-
         private VencedoresViewModel DefinirVencedoresDoCampeonato(List<Filme> podio)
         {
             var primeiroColocado = _filmeService.DefinirVencedorDaPartida(podio[0], podio[1]);
