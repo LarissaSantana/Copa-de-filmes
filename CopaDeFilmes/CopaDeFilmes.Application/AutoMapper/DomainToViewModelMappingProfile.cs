@@ -11,7 +11,8 @@ namespace CopaDeFilmes.Application.AutoMapper
             CreateMap<Filme, FilmeViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Ano, opt => opt.MapFrom(src => src.Ano))
-                .ForMember(dest => dest.Titulo, opt => opt.MapFrom(src => src.Titulo));
+                .ForMember(dest => dest.Titulo, opt => opt.MapFrom(src => src.Titulo))
+                .ForMember(dest => dest.Nota, opt => opt.MapFrom(src => src.Nota));
         }
     }
 }
