@@ -28,11 +28,14 @@ namespace CopaDeFilmes.Domain.Service
         {
             var primeiraRodada = OrganizarPrimeiraRodada(filmes);
             var podio = ProcessarPodio(primeiraRodada);
+            podio = podio.OrderBy(filme => filme.Nota)
+                         .ThenBy(filme => filme.Titulo)
+                         .ToList();
 
             return podio;
         }
 
-        private List<Filme> OrganizarPrimeiraRodada(List<Filme> filmes)
+        public List<Filme> OrganizarPrimeiraRodada(List<Filme> filmes)
         {
             var filmesOrdenados = filmes.OrderBy(f => f.Titulo).ToList();
             var metadeDoTamanho = filmesOrdenados.Count() / 2;
@@ -70,7 +73,7 @@ namespace CopaDeFilmes.Domain.Service
             return filmes.Count() == 2 ? filmes : ProcessarPodio(ProcessarPartida(filmes));
         }
 
-        public Filme DefinirVencedorDaPartida(Filme filmeA, Filme filmeB)
+        private Filme DefinirVencedorDaPartida(Filme filmeA, Filme filmeB)
         {
             //TODO: ver o que fazer caso as notas e os titulos dos filmes sejam iguais
             if (filmeA.Nota == filmeB.Nota)

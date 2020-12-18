@@ -68,6 +68,7 @@ namespace CopaDeFilmes.Domain.Tests
                ano: 2017,
                nota: 7.9f
            );
+
     }
 
 }

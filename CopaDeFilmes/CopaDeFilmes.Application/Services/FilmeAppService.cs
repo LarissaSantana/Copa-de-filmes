@@ -37,7 +37,12 @@ namespace CopaDeFilmes.Application.Services
 
             var filmes = _mapper.Map<List<Filme>>(filmesViewModel);
             var podio = _filmeService.ProcessarCampeonato(filmes);
-            var vencedores = DefinirVencedoresDoCampeonato(podio);
+
+            var vencedores = new VencedoresViewModel()
+            {
+                PrimeiroColocado = _mapper.Map<FilmeViewModel>(podio[0]),
+                SegundoColocado = _mapper.Map<FilmeViewModel>(podio[1])
+            };
 
             return vencedores;
         }
@@ -57,18 +62,18 @@ namespace CopaDeFilmes.Application.Services
             }
         }
 
-        private VencedoresViewModel DefinirVencedoresDoCampeonato(List<Filme> podio)
-        {
-            var primeiroColocado = _filmeService.DefinirVencedorDaPartida(podio[0], podio[1]);
-            var segundoColocado = podio.Where(filme => filme != primeiroColocado).FirstOrDefault();
+        //private VencedoresViewModel DefinirVencedoresDoCampeonato(List<Filme> podio)
+        //{
+        //    //var primeiroColocado = _filmeService.DefinirVencedorDaPartida(podio[0], podio[1]);
+        //    //var segundoColocado = podio.Where(filme => filme != primeiroColocado).FirstOrDefault();
 
-            var vencedoresViewModel = new VencedoresViewModel()
-            {
-                PrimeiroColocado = _mapper.Map<FilmeViewModel>(primeiroColocado),
-                SegundoColocado = _mapper.Map<FilmeViewModel>(segundoColocado)
-            };
+        //    var vencedoresViewModel = new VencedoresViewModel()
+        //    {
+        //        PrimeiroColocado = _mapper.Map<FilmeViewModel>(podio[0]),
+        //        SegundoColocado = _mapper.Map<FilmeViewModel>(podio[1])
+        //    };
 
-            return vencedoresViewModel;
-        }
+        //    return vencedoresViewModel;
+        //}
     }
 }

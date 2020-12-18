@@ -8,6 +8,6 @@ namespace CopaDeFilmes.Domain.Service
     {
         Task<List<Filme>> ObterTodosOsFilmes();
         List<Filme> ProcessarCampeonato(List<Filme> filmes);
-        Filme DefinirVencedorDaPartida(Filme filmeA, Filme filmeB);
+        List<Filme> OrganizarPrimeiraRodada(List<Filme> filmes);
     }
 }
