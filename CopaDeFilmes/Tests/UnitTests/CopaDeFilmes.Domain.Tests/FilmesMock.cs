@@ -69,6 +69,14 @@ namespace CopaDeFilmes.Domain.Tests
                nota: 7.9f
            );
 
+        public static Filme AViagemDeChihiro = FilmeFactory.Create
+          (
+              id: "tt3208644",
+              titulo: "A viagem de Chihiro",
+              ano: 2001,
+              nota: 8.8f
+          );
+
     }
 
 }

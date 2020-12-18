@@ -20,36 +20,41 @@ namespace CopaDeFilmes.Domain.Tests
             _filmeService = _filmeServiceFixture.GetFilmeService();
         }
 
-        // TODO: Processar campeonato 
-        [Trait("Filme", "FilmeService")]
-        [Fact(DisplayName = "Ao processar campeonato com o parâmetro correto deve executar com sucesso")]
-        public void ProcessarCampeonato_DeveExecutarComSucesso()
-        {
-            //Arrange
-            var filmesMock = new List<Filme>()
-            {
-                FilmesMock.OsIncriveis2,
-                FilmesMock.JurassicWorld,
-                FilmesMock.OitoMulheresEUmSegredo,
-                FilmesMock.Hereditario,
-                FilmesMock.Vingadores,
-                FilmesMock.Deadpool2,
-                FilmesMock.HanSolo,
-                FilmesMock.ThorRagnarok
-            };
 
-            //Act
-            var podio = _filmeService.ProcessarCampeonato(filmesMock);
+        //TODO: PROCESSAR CAMPEONATO PASSANDO UMA LISTA VAZIA
+        //TODO: PROCESSAR CAMPEONATO PASSANDO UM NÚMERO IMPAR DE ITENS
+        //TODO: PROCESSAR CAMPEONATO PASSANDO UMA LISTA VAZIA
+        //TODO: Processar campeonato 
 
-            //Assert
+        //[Trait("Filme", "FilmeService")]
+        //[Fact(DisplayName = "Ao processar campeonato com o parâmetro correto deve executar com sucesso")]
+        //public void ProcessarCampeonato_DeveExecutarComSucesso()
+        //{
+        //    //Arrange
+        //    var filmesMock = new List<Filme>()
+        //    {
+        //        FilmesMock.OsIncriveis2,
+        //        FilmesMock.JurassicWorld,
+        //        FilmesMock.OitoMulheresEUmSegredo,
+        //        FilmesMock.Hereditario,
+        //        FilmesMock.Vingadores,
+        //        FilmesMock.Deadpool2,
+        //        FilmesMock.HanSolo,
+        //        FilmesMock.ThorRagnarok
+        //    };
 
-            _filmeServiceFixture.Mocker.GetMock<IFilmeService>()
-                .Verify(x => x.OrganizarPrimeiraRodada(It.IsAny<List<Filme>>()), Times.Once);
+        //    //Act
+        //    var podio = _filmeService.ProcessarCampeonato(filmesMock);
 
-            _filmeServiceFixture.Mocker.GetMock<IFilmeService>()
-                .Verify(x => x.OrganizarPrimeiraRodada(It.Is<List<Filme>>(filmes => filmes.SequenceEqual(filmesMock))),
-                Times.Once);
-        }
+        //    //Assert
+
+        //    _filmeServiceFixture.Mocker.GetMock<IFilmeService>()
+        //        .Verify(x => x.OrganizarPrimeiraRodada(It.IsAny<List<Filme>>()), Times.Once);
+
+        //    _filmeServiceFixture.Mocker.GetMock<IFilmeService>()
+        //        .Verify(x => x.OrganizarPrimeiraRodada(It.Is<List<Filme>>(filmes => filmes.SequenceEqual(filmesMock))),
+        //        Times.Once);
+        //}
 
 
 
@@ -89,7 +94,7 @@ namespace CopaDeFilmes.Domain.Tests
             Assert.True(resultadoEsperado.SequenceEqual(primeiraRodada));
         }
 
-        [Trait("Filme", "FilmeService")]
+        [Trait("Filme", "FilmeService Campeonato")]
         [Fact(DisplayName = "Ao definir vencedor da partida com notas diferentes deve executar com sucesso")]
         public void DefinirVencedorDaPartida_ComNotasDiferentes_DeveRetornarOFilmeDeMaiorNota()
         {
@@ -101,14 +106,22 @@ namespace CopaDeFilmes.Domain.Tests
             var vencedor = _filmeService.DefinirVencedorDaPartida(filmeA, filmeB);
 
             //Assert
-            _filmeServiceFixture.Mocker.GetMock<IComparable>()
-                .Verify(str => str.CompareTo(It.IsAny<string>()), Times.Never);
-
-            var resultadoEsperado = FilmesMock.OsIncriveis2;
-            Assert.Equal(resultadoEsperado, vencedor);
+            Assert.Equal(filmeB, vencedor);
         }
 
-        //TODO: caso dois filmes finalistas tenham a mesma nota
-        //TODO: 
+        [Trait("Filme", "FilmeService Campeonato")]
+        [Fact(DisplayName = "Ao definir vencedor da partida com notas iguais deve executar com sucesso")]
+        public void DefinirVencedorDaPartida_ComNotasIguais_DeveRetornarOPrimeiroEmOrdemAlfabetica()
+        {
+            //Arrange
+            var filmeA = FilmesMock.AViagemDeChihiro;
+            var filmeB = FilmesMock.Vingadores;
+
+            //Act
+            var vencedor = _filmeService.DefinirVencedorDaPartida(filmeA, filmeB);
+
+            //Assert
+            Assert.Equal(filmeA, vencedor);
+        }
     }
 }
