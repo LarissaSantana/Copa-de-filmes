@@ -7,6 +7,6 @@ namespace CopaDeFilmes.Application.Interfaces
     public interface IFilmeAppService
     {
         Task<List<FilmeViewModel>> ObterTodosOsFilmes();
-        VencedoresViewModel ProcessarCampeonato(List<FilmeViewModel> filmes);
+        CampeonatoViewModel ProcessarCampeonato(List<FilmeViewModel> filmes);
     }
 }

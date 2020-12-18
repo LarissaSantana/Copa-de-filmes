@@ -7,7 +7,7 @@ namespace CopaDeFilmes.Domain.Service
     public interface IFilmeService
     {
         Task<List<Filme>> ObterTodosOsFilmes();
-        List<Filme> ProcessarCampeonato(List<Filme> filmes);
+        Campeonato ProcessarCampeonato(List<Filme> filmes);
         List<Filme> OrganizarPrimeiraRodada(List<Filme> filmes);
         Filme DefinirVencedorDaPartida(Filme filmeA, Filme filmeB);
     }

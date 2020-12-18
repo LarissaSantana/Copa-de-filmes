@@ -13,6 +13,10 @@ namespace CopaDeFilmes.Application.AutoMapper
                 .ForMember(dest => dest.Ano, opt => opt.MapFrom(src => src.Ano))
                 .ForMember(dest => dest.Titulo, opt => opt.MapFrom(src => src.Titulo))
                 .ForMember(dest => dest.Nota, opt => opt.MapFrom(src => src.Nota));
+
+            CreateMap<Campeonato, CampeonatoViewModel>()
+                .ForMember(dest => dest.Campeao, opt => opt.MapFrom(src => src.Campeao))
+                .ForMember(dest => dest.ViceCampeao, opt => opt.MapFrom(src => src.ViceCampeao));
         }
     }
 }
