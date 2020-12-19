@@ -30,8 +30,8 @@ namespace CopaDeFilmes.API.Controllers
         [HttpPost]
         public IActionResult GerarCampeonato([FromBody] List<FilmeViewModel> filmes)
         {
-            var vencedores = _filmeAppService.ProcessarCampeonato(filmes);
-            return GetResponse(vencedores);
+            var campeonato = _filmeAppService.ProcessarCampeonato(filmes);
+            return GetResponse(campeonato);
         }
     }
 }
