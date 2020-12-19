@@ -7,18 +7,22 @@ import { FilmeListaComponent } from './views/filme-lista/filme-lista.component';
 import { CabecalhoComponent } from './views/cabecalho/cabecalho.component';
 import { FilmeComponent } from './views/filme/filme.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InicioComponent } from './views/inicio/inicio.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
     AppComponent,
     FilmeListaComponent,
     CabecalhoComponent,
-    FilmeComponent
+    FilmeComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
