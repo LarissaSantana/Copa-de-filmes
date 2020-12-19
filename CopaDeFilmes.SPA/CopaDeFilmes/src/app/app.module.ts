@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FilmeListaComponent } from './views/filme-lista/filme-lista.component';
 import { CabecalhoComponent } from './views/cabecalho/cabecalho.component';
 import { FilmeComponent } from './views/filme/filme.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FilmeComponent } from './views/filme/filme.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
