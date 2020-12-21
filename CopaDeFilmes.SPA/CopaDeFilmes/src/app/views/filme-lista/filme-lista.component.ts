@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Filme } from 'src/app/shared/model/filme.model';
 import { FilmeService } from 'src/app/shared/service/filme.service';
-import { map, tap, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Campeonato } from 'src/app/shared/model/campeonato.model';
+import { NavigationExtras, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-filme-lista',
@@ -13,9 +14,12 @@ import { Campeonato } from 'src/app/shared/model/campeonato.model';
 export class FilmeListaComponent implements OnInit {
   public formulario: FormGroup;
   filmes: Filme[];
-  campeonato: Campeonato;
 
-  constructor(public filmeService: FilmeService, private formBuilder: FormBuilder) { }
+  constructor(
+    public filmeService: FilmeService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.filmes = [];
@@ -56,16 +60,13 @@ export class FilmeListaComponent implements OnInit {
     console.log(valueSubmit);
     console.log("submit...");
 
-    this.gerarCampeonato(valueSubmit);
+    this.filmeService.gerarCampeonato(valueSubmit).subscribe(dados => {
+      this.filmeService.messageSource.next(dados)
+      this.navegarParaOCampeonato()
+    }, (erro: any) => { console.log(erro); })
   }
 
-  gerarCampeonato(filmes: Filme[]) {
-//    debugger
-    console.log(filmes);
-    this.filmeService.gerarCampeonato(filmes).subscribe(dados => {
-      console.log(dados);
-      this.campeonato = dados;
-      console.log(this.campeonato);
-    }, (erro: any) => { console.log(erro); })
+  navegarParaOCampeonato(): void {
+    this.router.navigate(['/campeonato']);
   }
 }

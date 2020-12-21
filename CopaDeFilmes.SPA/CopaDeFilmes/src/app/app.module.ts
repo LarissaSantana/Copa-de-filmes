@@ -14,6 +14,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { CampeonatoComponent } from './views/campeonato/campeonato.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     FilmeListaComponent,
     CabecalhoComponent,
     FilmeComponent,
-    InicioComponent
+    InicioComponent,
+    CampeonatoComponent
   ],
   imports: [
     BrowserModule,

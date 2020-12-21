@@ -1,20 +1,18 @@
-<form class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
-    <div class="col-md-3">
-        <label for="filmes">Frameworks</label>
-        <div id="filmes" class="row">
-            <div class="checkbox" class="col-sm-4" formArrayName="filmes"
-                *ngFor="let item of getFilmesControls(); let i = index">
-                <label class="checkbox-inline">
-                    <input type="checkbox" [formControlName]="i"> {{ filmes[i].titulo }}
-                    <label>{{filmes[i].ano}}</label>
-                </label>
+<div>
+    <form class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="col-md-3">
+            <label for="filmes">Frameworks</label>
+            <div id="filmes" class="row">
+                <div class="checkbox" class="col-sm-4" formArrayName="filmes"
+                    *ngFor="let item of getFilmesControls(); let i = index">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" [formControlName]="i"> {{ filmes[i].titulo }}
+                        <label>{{filmes[i].ano}}</label>
+                    </label>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <button type="submit" (click)="onSubmit()" class="btn btn-primary">Gerar Campeonato</button>
-<p>
-
-
-    <app-filme></app-filme>
