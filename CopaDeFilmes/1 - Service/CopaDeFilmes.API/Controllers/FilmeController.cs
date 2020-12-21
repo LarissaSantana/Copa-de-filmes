@@ -2,7 +2,6 @@
 using CopaDeFilmes.Application.ViewModels;
 using CopaDeFilmes.Domain.Core.Notifications;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CopaDeFilmes.API.Controllers
@@ -28,9 +27,9 @@ namespace CopaDeFilmes.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult GerarCampeonato([FromBody] List<FilmeViewModel> filmes)
+        public IActionResult GerarCampeonato([FromBody] FilmesViewModel filmesViewModel)
         {
-            var campeonato = _filmeAppService.ProcessarCampeonato(filmes);
+            var campeonato = _filmeAppService.ProcessarCampeonato(filmesViewModel.filmes);
             return GetResponse(campeonato);
         }
     }

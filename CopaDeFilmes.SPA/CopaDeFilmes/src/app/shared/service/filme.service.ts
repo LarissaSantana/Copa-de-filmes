@@ -28,9 +28,6 @@ export class FilmeService {
 
   public gerarCampeonato(filmes: any): Observable<Campeonato> {
     const body = JSON.stringify(filmes);
-    var indiceInicialDoArray = body.indexOf("[");
-    var indiceFinalDoArray = body.indexOf("]") + 1;
-    var bodyArray = body.substring(indiceInicialDoArray, indiceFinalDoArray);
-    return this.httpClient.post<Campeonato>(this.apiUrl, bodyArray, this.httpOptions);
+    return this.httpClient.post<Campeonato>(this.apiUrl, body, this.httpOptions);
   }
 } 
