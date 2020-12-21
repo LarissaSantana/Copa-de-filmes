@@ -1,18 +1,25 @@
 <div>
+    Selecionados 0 de 8 filmes
+</div>
+
+<div class="div-button">
+    <button type="submit" (click)="onSubmit()" class="button">Gerar Meu Campeonato</button>
+</div>
+
+<div class="grid-container">
     <form class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
         <div class="col-md-3">
-            <label for="filmes">Frameworks</label>
-            <div id="filmes" class="row">
-                <div class="checkbox" class="col-sm-4" formArrayName="filmes"
-                    *ngFor="let item of getFilmesControls(); let i = index">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" [formControlName]="i"> {{ filmes[i].titulo }}
-                        <label>{{filmes[i].ano}}</label>
-                    </label>
+            <div class="card-list-grid">
+                <div id="filmes" class="card-list-grid">
+                    <div class="card" formArrayName="filmes" *ngFor="let item of getFilmesControls(); let i = index">
+                        <div><label class="checkbox-inline">
+                                <input type="checkbox" [formControlName]="i"> {{ filmes[i].titulo }}
+                                <p><label>{{filmes[i].ano}}</label>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
-
-<button type="submit" (click)="onSubmit()" class="btn btn-primary">Gerar Campeonato</button>

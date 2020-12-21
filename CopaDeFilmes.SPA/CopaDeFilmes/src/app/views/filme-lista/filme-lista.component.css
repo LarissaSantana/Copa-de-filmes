@@ -1,31 +1,80 @@
-.mat-card-filme {
-  border: 1px solid #CFD8DC;
-  border-radius: 4px 3px 6px / 2px 4px;
-  padding-top: 15px;
-  padding-left: 0%;
-  padding-right: 0%;
-  padding-bottom: 0%;
-  margin: 5px;
+.checkbox-grid li {
+  display: block;
+  float: left;
+  width: 25%;
 }
 
-.mat-card-title-filme {
-  padding-left: 10px;
-  padding-top: 0px;
-  padding-right: 15px;
-  margin-bottom: 0px;
-  min-height: 70px;
+.card {
+  height: 100px;
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  margin: 2px;
+  background-color: white;
 }
 
-.mat-card {
+.card div:last-child {
   display: flex;
   flex-direction: column;
 }
 
-.mat-card-header {
-  flex-shrink: 0;
+.card-list {
+  margin-top: 30px;
+  height: 200px;
+  width: 80%;
 }
 
-.mat-card-content {
-  flex-grow: 1;
-  overflow: auto;
+.card-list-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.card-list-header div {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  background-color: #555555;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.div-button {
+  display: flex;
+  height: 40px;
+  width: 87%;
+  margin-top: 40px;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+  align-items: center;
+}
+
+.card-list-grid {
+  height: 600px;
+  width: 75%;
+  background-color: grey;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.header {
+  margin-top: 30px;
+  height: 200px;
+  width: 80%;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
