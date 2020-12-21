@@ -1,6 +1,6 @@
-export class Filme{
+export class Filme {
     id: string;
     titulo: string;
-    ano: string;
-    nota: string;
+    ano: number;
+    nota: number;
 }
