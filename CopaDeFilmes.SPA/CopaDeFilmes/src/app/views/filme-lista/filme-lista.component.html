@@ -1,25 +1,20 @@
-<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap style="padding: 2%;">
-    <div style="margin: 0.5%;">
-        <mat-card class="example-card" fxFlex="0 1 calc(33.3% - 11px)" fxFlex.1t-md="0 1 calc(50% - 11x)"
-            fxFlex.1t-sm="100%">
-            <mat-card-header>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    <mat-card-actions>
-                        FILME 1
-                    </mat-card-actions>
-                </p>
-            </mat-card-content>
-            <mat-card-content>
-                <p>
-                    <mat-card-actions>
-                        FILME 1
-                    </mat-card-actions>
-                </p>
-            </mat-card-content>
-        </mat-card>
+<form class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <div class="col-md-3">
+        <label for="filmes">Frameworks</label>
+        <div id="filmes" class="row">
+            <div class="checkbox" class="col-sm-4" formArrayName="filmes"
+                *ngFor="let item of getFilmesControls(); let i = index">
+                <label class="checkbox-inline">
+                    <input type="checkbox" [formControlName]="i"> {{ filmes[i].titulo }}
+                    <label>{{filmes[i].ano}}</label>
+                </label>
+            </div>
+        </div>
     </div>
-</div>
+</form>
 
-<app-filme></app-filme>
+<button type="submit" (click)="onSubmit()" class="btn btn-primary">Gerar Campeonato</button>
+<p>
+
+
+    <app-filme></app-filme>
