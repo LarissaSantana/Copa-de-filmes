@@ -50,10 +50,9 @@ export class FilmeListaComponent implements OnInit {
         filmes: this.construirFilmes(dados)
       });
 
-      (<FormArray>this.formulario.get('filmes')).statusChanges.subscribe(
+      (<FormArray>this.formulario.get('filmes')).valueChanges.subscribe(
         status => {
-          if (status) this.quantidadeDeFilmesSelecionados++
-          else this.quantidadeDeFilmesSelecionados--;
+          this.quantidadeDeFilmesSelecionados = (status as any[]).filter((value: boolean) => value).length
           this.botaoHabilitado = this.quantidadeDeFilmesSelecionados == 8;
         }
       )
@@ -68,7 +67,7 @@ export class FilmeListaComponent implements OnInit {
         .map((filme: Filme, index: number) => filme ? this.filmes[index] : null)
         .filter((filme: Filme) => filme !== null)
     });
-    
+
     this.filmeService.gerarCampeonato(valueSubmit).subscribe(dados => {
       this.filmeService.messageSource.next(dados)
       this.navegarParaOCampeonato()
