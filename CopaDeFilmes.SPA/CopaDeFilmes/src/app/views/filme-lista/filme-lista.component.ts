@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Filme } from 'src/app/shared/model/filme.model';
 import { FilmeService } from 'src/app/shared/service/filme.service';
 import { Campeonato } from 'src/app/shared/model/campeonato.model';
 import { NavigationExtras, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-filme-lista',
@@ -14,6 +14,8 @@ import { BehaviorSubject } from 'rxjs';
 export class FilmeListaComponent implements OnInit {
   public formulario: FormGroup;
   filmes: Filme[];
+  quantidadeDeFilmesSelecionados: number = 0;
+  controleDeCheckbox: FormControl = new FormControl();
 
   constructor(
     public filmeService: FilmeService,
@@ -27,6 +29,11 @@ export class FilmeListaComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       filmes: this.buildFilmes([])
     });
+
+    this.controleDeCheckbox.valueChanges.subscribe(value => {
+      if (value) this.quantidadeDeFilmesSelecionados++
+      else this.quantidadeDeFilmesSelecionados--;
+    })
   }
 
   getFilmesControls() {

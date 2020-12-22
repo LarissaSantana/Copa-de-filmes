@@ -5,13 +5,13 @@
 }
 
 .card {
-  height: 100px;
-  width: 200px;
-  border: 1px solid black;
+  height: 80px;
+  width: 240px;
+  border: 1px solid grey;
   border-radius: 4px;
   display: flex;
   align-items: center;
-  margin: 2px;
+  margin: 4px;
   background-color: white;
 }
 
@@ -22,8 +22,17 @@
 
 .card-list {
   margin-top: 30px;
-  height: 200px;
+  height: 300px;
   width: 80%;
+}
+
+.card-list-grid {
+  width: 75%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
 }
 
 .card-list-header {
@@ -49,23 +58,29 @@
   border-radius: 8px;
 }
 
+.button-area {
+  display: flex;
+  width: 75%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.select {
+  color: white;
+  display: inline-block;
+  font-size: 20px;
+  justify-content: space-between;
+}
+
 .div-button {
   display: flex;
   height: 40px;
   width: 87%;
-  margin-top: 40px;
   justify-content: flex-end;
-  margin-bottom: 40px;
   align-items: center;
-}
-
-.card-list-grid {
-  height: 600px;
-  width: 75%;
-  background-color: grey;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
 }
 
 .header {
@@ -77,4 +92,12 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.checkbox-area {
+  display: flex;
+}
+
+.nome-titulo{
+    color: tomato;
 }
