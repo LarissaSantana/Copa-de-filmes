@@ -23,5 +23,5 @@
   - Ter o Angular 11.0.5, Angular CLI e o typoscript 4.0.5 instalados no computados
 
 - Como executar:
-  - Para executar, é necessário configurar o campo baseUrl que fica no arquivo https://github.com/LarissaSantana/Copa-de filmes/blob/main/CopaDeFilmes.SPA/CopaDeFilmes/src/environments/environment.ts. A configuração é feita alterando a porta da url para a mesma porta HTTPs do serviço do backend.
+  - Para executar, é necessário configurar o campo baseUrl que fica no arquivo CopaDeFilmes.SPA/CopaDeFilmes/src/environments/environment.ts. A configuração é feita alterando a porta da url para a mesma porta HTTPs do serviço do backend.
   - Através do Angular CLI é possível digitar "ng serve" no terminal do visual studio code e uma página vai ser aberta no navegador com a aplicação funcionando.
