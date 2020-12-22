@@ -11,6 +11,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   templateUrl: './filme-lista.component.html',
   styleUrls: ['./filme-lista.component.css']
 })
+
 export class FilmeListaComponent implements OnInit {
   public formulario: FormGroup;
   filmes: Filme[];
@@ -27,15 +28,15 @@ export class FilmeListaComponent implements OnInit {
     this.filmes = [];
     this.obterFilmes();
     this.formulario = this.formBuilder.group({
-      filmes: this.buildFilmes([])
+      filmes: this.construirFilmes([])
     });
   }
 
-  getFilmesControls() {
+  obterControleDeFilmes() {
     return (<FormArray>this.formulario.get('filmes')).controls;
   }
 
-  buildFilmes(filmes: Filme[]) {
+  construirFilmes(filmes: Filme[]) {
     const values = filmes.map(v => new FormControl(false));
     return this.formBuilder.array(values);
   }
@@ -46,7 +47,7 @@ export class FilmeListaComponent implements OnInit {
       console.log(this.filmes);
 
       this.formulario = this.formBuilder.group({
-        filmes: this.buildFilmes(dados)
+        filmes: this.construirFilmes(dados)
       });
 
       (<FormArray>this.formulario.get('filmes')).statusChanges.subscribe(
@@ -67,9 +68,7 @@ export class FilmeListaComponent implements OnInit {
         .map((filme: Filme, index: number) => filme ? this.filmes[index] : null)
         .filter((filme: Filme) => filme !== null)
     });
-    console.log(valueSubmit);
-    console.log("submit...");
-
+    
     this.filmeService.gerarCampeonato(valueSubmit).subscribe(dados => {
       this.filmeService.messageSource.next(dados)
       this.navegarParaOCampeonato()

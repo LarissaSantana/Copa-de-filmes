@@ -13,7 +13,7 @@
         <div class="col-md-3">
             <div class="">
                 <div id="filmes" class="card-list-grid">
-                    <div class="card" formArrayName="filmes" *ngFor="let item of getFilmesControls(); let i = index">
+                    <div class="card" formArrayName="filmes" *ngFor="let item of obterControleDeFilmes(); let i = index">
                         <div><label class="checkbox-area">
                                 <input type="checkbox" [formControlName]="i">
                                 <div>
