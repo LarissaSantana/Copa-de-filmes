@@ -4,7 +4,7 @@
     </div>
 
     <div class="div-button">
-        <button type="submit" (click)="onSubmit()" class="button">Gerar Meu Campeonato</button>
+        <button type="submit" [disabled]="!botaoHabilitado" (click)="onSubmit()" class="button">Gerar Meu Campeonato</button>
     </div>
 </div>
 
@@ -15,10 +15,10 @@
                 <div id="filmes" class="card-list-grid">
                     <div class="card" formArrayName="filmes" *ngFor="let item of getFilmesControls(); let i = index">
                         <div><label class="checkbox-area">
-                                <input [formControl]="controleDeCheckbox" type="checkbox" [formControlName]="i">
+                                <input type="checkbox" [formControlName]="i">
                                 <div>
                                     <strong>{{ filmes[i].titulo }}</strong>
-                                    <label>{{filmes[i].ano}}</label>
+                                    <label>{{ filmes[i].ano }}</label>
                                 </div>
                             </label>
                         </div>

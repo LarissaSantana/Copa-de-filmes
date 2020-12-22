@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Filme } from 'src/app/shared/model/filme.model';
 import { FilmeService } from 'src/app/shared/service/filme.service';
@@ -15,7 +15,7 @@ export class FilmeListaComponent implements OnInit {
   public formulario: FormGroup;
   filmes: Filme[];
   quantidadeDeFilmesSelecionados: number = 0;
-  controleDeCheckbox: FormControl = new FormControl();
+  botaoHabilitado = false;
 
   constructor(
     public filmeService: FilmeService,
@@ -29,15 +29,10 @@ export class FilmeListaComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       filmes: this.buildFilmes([])
     });
-
-    this.controleDeCheckbox.valueChanges.subscribe(value => {
-      if (value) this.quantidadeDeFilmesSelecionados++
-      else this.quantidadeDeFilmesSelecionados--;
-    })
   }
 
   getFilmesControls() {
-    return this.formulario.get('filmes') ? (<FormArray>this.formulario.get('filmes')).controls : null;
+    return (<FormArray>this.formulario.get('filmes')).controls;
   }
 
   buildFilmes(filmes: Filme[]) {
@@ -53,6 +48,14 @@ export class FilmeListaComponent implements OnInit {
       this.formulario = this.formBuilder.group({
         filmes: this.buildFilmes(dados)
       });
+
+      (<FormArray>this.formulario.get('filmes')).statusChanges.subscribe(
+        status => {
+          if (status) this.quantidadeDeFilmesSelecionados++
+          else this.quantidadeDeFilmesSelecionados--;
+          this.botaoHabilitado = this.quantidadeDeFilmesSelecionados == 8;
+        }
+      )
     });
   }
 
