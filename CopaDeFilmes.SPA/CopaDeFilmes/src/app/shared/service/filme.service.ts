@@ -1,5 +1,4 @@
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
