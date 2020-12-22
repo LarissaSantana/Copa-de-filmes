@@ -1,4 +1,5 @@
 ﻿using CopaDeFilmes.Domain.Entities;
+using System.Collections.Generic;
 using static CopaDeFilmes.Domain.Entities.Filme;
 
 namespace CopaDeFilmes.Domain.Tests
@@ -77,6 +78,16 @@ namespace CopaDeFilmes.Domain.Tests
               nota: 8.8f
           );
 
+        public static List<Filme> GerarListaDeFilmesDinamicaParaCasoDeFalha(int quantidade)
+        {
+            var filmes = new List<Filme>();
+            for (int i = 0; i < quantidade; i++)
+            {
+                filmes.Add(FilmeFactory.Create("1", "Titulo Teste", 2020, 10f));
+            }
+
+            return filmes;
+        }
     }
 
 }

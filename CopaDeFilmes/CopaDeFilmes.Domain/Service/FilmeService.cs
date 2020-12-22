@@ -2,7 +2,6 @@
 using CopaDeFilmes.Domain.Entities;
 using CopaDeFilmes.Domain.Repositories;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CopaDeFilmes.Domain.Service

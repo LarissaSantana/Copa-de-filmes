@@ -26,10 +26,10 @@
                     Campeao?.Titulo == campeonato?.Campeao?.Titulo;
 
                 var viceCampeaoEhIgual =
-                    ViceCampeao?.Id == campeonato?.Campeao?.Id &&
-                    ViceCampeao?.Nota == campeonato?.Campeao?.Nota &&
-                    ViceCampeao?.Ano == campeonato?.Campeao?.Ano &&
-                    ViceCampeao?.Titulo == campeonato?.Campeao?.Titulo;
+                    ViceCampeao?.Id == campeonato?.ViceCampeao?.Id &&
+                    ViceCampeao?.Nota == campeonato?.ViceCampeao?.Nota &&
+                    ViceCampeao?.Ano == campeonato?.ViceCampeao?.Ano &&
+                    ViceCampeao?.Titulo == campeonato?.ViceCampeao?.Titulo;
 
                 return campeaoEhIgual && viceCampeaoEhIgual;
             }
@@ -42,11 +42,6 @@
             public static Campeonato Create(Filme campeao, Filme viceCampeao)
             {
                 return new Campeonato(campeao, viceCampeao);
-            }
-
-            public static Campeonato Create(Campeonato campeonato)
-            {
-                return new Campeonato(campeonato.Campeao, campeonato.ViceCampeao);
             }
         }
     }

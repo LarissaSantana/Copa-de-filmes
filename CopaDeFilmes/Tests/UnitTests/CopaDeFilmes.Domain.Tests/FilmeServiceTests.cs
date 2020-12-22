@@ -56,43 +56,26 @@ namespace CopaDeFilmes.Domain.Tests
         }
 
         [Trait("Filme", "FilmeService Campeonato")]
-        [Fact(DisplayName = "Ao executar campeonato passando uma lista vazia, deve executar com falha")]
-        public void ProcessarCampeonato_PassandoUmaListaVazia_DeveRetornarMsgDeErro()
+        [Theory(DisplayName = "Ao executar campeonato passando uma quantidade inválida, deve executar com falha")]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(6)]
+        [InlineData(7)]
+        [InlineData(9)]
+        [InlineData(10)]
+        public void ProcessarCampeonato_PassandoUmaListaImpar_DeveRetornarMsgDeErro(int quantidadeDeFilmes)
         {
             //Arrange
-            var filmesMock = new List<Filme>() { };
+            var filmesMock = FilmesMock.GerarListaDeFilmesDinamicaParaCasoDeFalha(quantidadeDeFilmes);
             _filmeServiceFixture.SetupHasNotifications(true);
 
             //Act
             var campeonato = _filmeService.ProcessarCampeonato(filmesMock);
 
             //Assert
-            var mensagemDeErroEsperada = "Para gerar um campeonato, é necessário ter, pelo menos, dois filmes";
-            _filmeServiceFixture.Mocker.GetMock<INotificationContext<Notification>>()
-                 .Verify(x => x.AddNotification(It.Is<string>(n => n.Equals(mensagemDeErroEsperada))), Times.Once);
-
-            Assert.Equal(campeonato, new Campeonato());
-        }
-
-        [Trait("Filme", "FilmeService Campeonato")]
-        [Fact(DisplayName = "Ao executar campeonato passando uma lista impar, deve executar com falha")]
-        public void ProcessarCampeonato_PassandoUmaListaImpar_DeveRetornarMsgDeErro()
-        {
-            //Arrange
-            var filmesMock = new List<Filme>()
-            {
-                FilmesMock.OsIncriveis2,
-                FilmesMock.JurassicWorld,
-                FilmesMock.OitoMulheresEUmSegredo
-            };
-
-            _filmeServiceFixture.SetupHasNotifications(true);
-
-            //Act
-            var campeonato = _filmeService.ProcessarCampeonato(filmesMock);
-
-            //Assert
-            var mensagemDeErroEsperada = "Para gerar um campeonato, é necessário ter uma quantidade par de filmes";
+            var mensagemDeErroEsperada = "Quantidade de filmes inválida para gerar um campeonato";
             _filmeServiceFixture.Mocker.GetMock<INotificationContext<Notification>>()
                  .Verify(x => x.AddNotification(It.Is<string>(n => n.Equals(mensagemDeErroEsperada))), Times.Once);
 

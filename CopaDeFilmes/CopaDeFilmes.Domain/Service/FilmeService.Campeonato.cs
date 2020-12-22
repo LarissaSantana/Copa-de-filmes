@@ -24,15 +24,13 @@ namespace CopaDeFilmes.Domain.Service
 
         private void ValidarCampeonato(List<Filme> filmesViewModel)
         {
-            if (filmesViewModel != null && !filmesViewModel.Any())
-            {
-                _notification.AddNotification("Para gerar um campeonato, é necessário ter, pelo menos, dois filmes");
-                return;
-            }
+            var filmesViewModelEstaSemValor = filmesViewModel != null && !filmesViewModel.Any();
+            var quantidadeInvalidaParaCampeonato = (((Math.Log(filmesViewModel.Count(), 2) % 1) != 0) ||
+                                                     (filmesViewModel.Count() == 1));
 
-            if ((filmesViewModel.Count()) % 2 != 0)
+            if (filmesViewModelEstaSemValor || quantidadeInvalidaParaCampeonato)
             {
-                _notification.AddNotification("Para gerar um campeonato, é necessário ter uma quantidade par de filmes");
+                _notification.AddNotification("Quantidade de filmes inválida para gerar um campeonato");
                 return;
             }
         }
