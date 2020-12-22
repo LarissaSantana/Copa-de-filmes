@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FilmeListaComponent } from './views/filme-lista/filme-lista.component';
 import { CabecalhoComponent } from './views/cabecalho/cabecalho.component';
-import { FilmeComponent } from './views/filme/filme.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InicioComponent } from './views/inicio/inicio.component';
 import { MatCardModule } from '@angular/material/card';
@@ -22,7 +21,6 @@ import { CampeonatoComponent } from './views/campeonato/campeonato.component';
     AppComponent,
     FilmeListaComponent,
     CabecalhoComponent,
-    FilmeComponent,
     InicioComponent,
     CampeonatoComponent
   ],
